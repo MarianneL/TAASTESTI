@@ -5,6 +5,7 @@ package
 	import flash.display.MovieClip;
 	import flash.display.Stage;
 	import flash.events.Event;
+	import flash.geom.Point;
 	
 	public class Player extends MovieClip
 	{
@@ -14,7 +15,12 @@ package
 		public var leftPressed:Boolean = false;
 		public var rightPressed:Boolean = false;
 		
+		//static  var leftBumpPoint:Point = new Point(-35, -45);
+		//static var rightBumpPoint:Point = new Point(35, -45)
+		
 		var speed:Number = 5;
+		
+		var animationState:String = "idle";
 		
 		public function Player(stageRef:Stage, X:int, Y:int):void
 		{
@@ -31,13 +37,35 @@ package
 		{
 			checkKeypresses();
 			
-			if(leftPressed)
+			// Jos oikea näppäin pohjassa
+			if(rightPressed)
 			{
-				x -= speed;
-			} else if(rightPressed)
-			{
+				// animaatioksi vaihtuu oikealle kävelevä ukkeli
+				animationState = "walkRight";
 				x += speed;
 			}
+			// Jos vasen näppäin on pohjassa...
+			else if(leftPressed)
+			{
+				// animaatioksi vaihtuu vasemmalle kävelevä ukkeli
+				animationState = "walkLeft";
+				x -= speed;
+			}
+			// Jos kumpikaan näppäin ei ole pohjassa... (! = not, eli "not rightPressed")
+			else if(!rightPressed && !leftPressed)
+				//...animaationa on idle
+				animationState = "idle";
+			
+			// currentLabel katsoo flashissä ukkelin timelinelta, missä labelissa ollaan (labelit: idle, walking.)
+			// Jos label ja animaatio jonka pitäisi pyöriä ei täsmää, animaatio vaihdetaan oikeaksi
+			// TAi jotain sellasta, en oikeen ymmäräny :D
+			if(this.currentLabel != animationState)
+				this.gotoAndStop(animationState);
+			
+			/*if(this.x < 38)
+				this.x = 38;
+			else if(this.x > 932)
+				this.x = 923;*/
 		}
 		
 		public function checkKeypresses():void

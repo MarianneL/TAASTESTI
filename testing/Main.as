@@ -1,7 +1,7 @@
 package
 {
-	import flash.display.Stage;
 	import flash.display.MovieClip;
+	import flash.display.Stage;
 	import flash.events.Event;
 	
 	public class Main extends MovieClip
@@ -13,9 +13,9 @@ package
 		{
 			level1 = new Level1(stage, 480, 370);
 			stage.addChild(level1);
-			
-			player = new Player(stage, 140, 300);
-			stage.addChild(player);
+
+			player = new Player(stage, 140, 355);
+			stage.addChild(player);	
 		}
 	}
 }

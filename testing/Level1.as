@@ -31,13 +31,13 @@ package
 		{
 			checkKeypresses();
 			
-			if(leftPressed)
+			/*if(leftPressed)
 			{
 				x += speed;
 			} else if(rightPressed)
 			{
 				x -= speed;
-			}
+			}*/
 		}
 		
 		public function checkKeypresses():void
